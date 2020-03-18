@@ -81,15 +81,15 @@ WARNING
           return true
         end
 
-        precompile = rake.task("assets:precompile")
+        precompile = rake.task("assets:precompile", out: '--trace')
         return true unless precompile.is_defined?
 
-        topic("Preparing app for Rails asset pipeline")
+        topic("Preparing app for Rails asset pipeline - Yeah, we're using this")
 
         @cache.load_without_overwrite public_assets_folder
         @cache.load default_assets_cache
 
-        precompile.invoke(env: rake_env)
+        precompile.invoke(env: rake_env, out: '--trace')
 
         if precompile.success?
           log "assets_precompile", :status => "success"
